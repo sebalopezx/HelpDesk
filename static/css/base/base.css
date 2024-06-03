@@ -1,0 +1,11 @@
+:root {
+    --background-color: #181818;
+    --primary-color: red;
+    --secondary-color: whitesmoke;
+    --tertiary-color: red;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}

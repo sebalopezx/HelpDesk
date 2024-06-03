@@ -1,0 +1,26 @@
+{% load static %}
+
+<tr>
+    <th>ID</th>
+    <th>RUT Usuario</th>
+    <th>Problema</th>
+    {% comment %} {% if is_update_view %}
+        <th>Agente de Apertura</th>
+        <th>Agente de Cierre</th>
+    {% endif %} {% endcomment %}
+    <th>Prioridad</th>
+    <th>Tipo</th>
+    <th>Estado</th>
+    {% comment %} {% if is_update_view %}
+        <th>Observación</th>
+        <th>Solución</th>
+    {% endif %} {% endcomment %}
+    <th>Fecha de creación</th>
+    <th>Fecha de termino</th>
+    {% comment %} {% if is_update_view %}
+        <th>Volver</th>
+    {% else %} {% endcomment %}
+    <th>Editar</th>
+    {% comment %} {% endif %} {% endcomment %}
+    <th>Eliminar</th>
+</tr>

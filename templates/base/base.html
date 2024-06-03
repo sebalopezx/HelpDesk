@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    {% include "base/head.html" %}
+<head>
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg"> 
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                HelpDesk
+                {% if request.user.is_authenticated  and request.user.is_staff %}
+                    STAFF
+                {% elif request.user.is_authenticated and not request.user.is_staff %}
+                    USER
+                {% else %}
+                    👍
+                {% endif %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff and not request.user.is_superuser %}   
+                        {% include "base/components/navbar_agent.html" %}
+                    {% elif not request.user.is_staff and not request.user.is_superuser %} 
+                        {% include "base/components/navbar_user.html" %}
+                    {% elif request.user.is_staff and request.user.is_superuser %}
+                        <script type="text/javascript">
+                            window.location.href = "{% url 'admin:index' %}";
+                        </script>
+                    {% endif %}
+                {% else %}
+                    {% include "base/components/navbar_base.html" %}
+                {% endif %}
+    
+            </div>
+        </div>
+    </nav>
+    <h1 class="mt-5 text-danger">request.user.is_superuser  =  {{ request.user.is_superuser }}</h1>
+    <h1 class="mt-5 text-danger">request.user.is_staff  =  {{ request.user.is_staff }}</h1>
+    {% comment %} HTMX {% endcomment %}
+
+
+
+    {% comment %} <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script> {% endcomment %}
+    <script>
+        // Add the CSRF token to all HTMX requests
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').content;
+        });
+    </script> 
+</body>
+
+</html>

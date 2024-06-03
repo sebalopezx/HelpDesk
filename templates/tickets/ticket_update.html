@@ -1,0 +1,37 @@
+{% include "base/base.html" %}
+{% load static %}
+
+<div class="container">
+
+    <h1>Detalles Ticket</h1>
+    {% comment %} {% for ticket in ticket %}
+    {{ ticket }}
+    {% endfor %} {% endcomment %}
+    {{ ticket.id }}
+    RUT: {{ ticket.customer }}
+    {{ ticket.customer.user.first_name }} {{ ticket.customer.user.last_name }}
+    {{ ticket.opening_agent }}
+    {% if ticket.closure_agent %}{{ ticket.closure_agent.id }}{% else %}Sin agente{% endif %}
+    <td>{{ ticket.opening_date }}</td>
+    <td>{% if ticket.closing_date %}{{ ticket.closing_date }}{% else %}Sin fecha de cierre{% endif %}</td>
+    
+    <h1>Update Ticket</h1>
+    <form method='POST' > 
+        {% comment %} hx-post="{% url 'ticket_update' ticket.id %}" hx-target="#ticket-form" hx-swap="outerHTML" {% endcomment %}
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        {% for form in form %}
+            <p>
+                {{ form.label }}
+                {{ form }}
+            </p>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">Save</button>
+        
+        <a class="btn btn-secondary" href="{% url 'tickets' %}">
+            ↩
+        </a>
+    </form>
+    {% comment %} <div id="ticket-form"></div> {% endcomment %}
+</div>

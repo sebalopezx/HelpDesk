@@ -1,0 +1,20 @@
+{% include "base/base.html" %}
+{% load static %}
+
+<div class="container border rounded">
+    <form method='POST' action="{% url 'ticket_create' %}">
+        {% csrf_token %}
+
+        {% for form in form %}
+            <p>
+                {{ form.label }}
+                {{ form }}
+            </p>
+        {% endfor %}
+        <button type="submit">
+            Send
+        </button>
+    </form>
+</div>
+
+

@@ -1,0 +1,44 @@
+{% include "base/base.html" %}
+{% load static %}
+
+<div class="container">
+
+    <input 
+        type="text"
+        name="ticket-search"
+        placeholder="Search..."
+        hx-get="{% url 'ticket-search' %}"
+        hx-trigger="keyup changed delay:300ms"
+        hx-target="#tickets-table"
+        hx-swap="innerHTML  swap:0.8s settle:0.8s"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    >
+
+    {% comment %} <ul id="ticket-search"></ul> {% endcomment %}
+    {% if is_update_view %}<form action="">{% endif %}
+        
+        <div class="table-responsive">
+            <table class="table table-sm table-dark table-striped table-hover rounded">
+                <thead class="">
+                    {% include "tickets/partials/table_ticket_head.html" %}
+                </thead>
+                <tbody id="tickets-table" class="fade-in fade-out " > 
+                    {% comment %} hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:1s" {% endcomment %}
+                    {% include "tickets/partials/ticket_search_result.html" %}
+                </tbody>
+            </table>
+        </div>
+
+    {% if is_update_view %}</form>{% endif %}
+</div>
+
+{% comment %} 
+<script>
+    // Add the CSRF token to all HTMX requests
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').content;
+    });
+    document.querySelector('input[name="ticket-search"]').addEventListener('keyup', function(event) {
+        console.log('Keyup event:', event.target.value);
+    });
+</script> {% endcomment %}

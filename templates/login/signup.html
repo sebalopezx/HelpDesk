@@ -1,0 +1,27 @@
+{% include "base/base.html" %}
+
+<div class="container mt-5">
+
+    <h3 class="text-center mb-5">SIGN UP</h3>
+     
+    <form method='POST' action="{% url 'signup' %}">
+        {% csrf_token %}
+        <div class="mb-3 row">
+            {% for form in form %}
+            <label for="staticEmail" class="col-sm-4 col-form-label">{{ form.label }}</label>
+            <div class="col-sm-8">
+                <div class="">{{ form }}</div>
+            </div>
+            {% endfor %}
+            {% comment %} {% for form in form_profile %}
+            <label for="staticEmail" class="col-sm-4 col-form-label">{{ form.label }}</label>
+            <div class="col-sm-8">
+                <div class="">{{ form }}</div>
+            </div>
+            {% endfor %} {% endcomment %}
+        </div>
+        <button type="submit">
+            Send
+        </button>
+    </form>
+</div>

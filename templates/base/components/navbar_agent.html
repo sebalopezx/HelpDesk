@@ -1,0 +1,70 @@
+{% load static %}
+
+<ul class="navbar-nav ms-4 me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url "index" %}">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'tickets' %}">Tickets</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'ticket_create' %}">Crear Ticket</a>
+    </li>
+    {% comment %} <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+                <a class="dropdown-item" href="#">Action</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+        </ul>
+    </li> {% endcomment %}
+</ul>
+
+{% if request.user.is_authenticated %}
+    <p class="text-light">{{ request.user.username }}❗</p>
+{% endif %}
+<ul class="navbar-nav me-5 mb-2 mb-lg-0">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            👨
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+                <a class="dropdown-item" href="#">Action</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li> 
+            {% if request.user.is_authenticated %}
+                <li>
+                    <a class="dropdown-item" href="{% url "signout" %}">Cerrar Sesión</a>
+                </li>
+            {% else %}
+                <li>
+                    <a class="dropdown-item" href="{% url "signin" %}">Iniciar Sesión</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url "signup" %}">Registrarse</a>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+</ul>
+<form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>

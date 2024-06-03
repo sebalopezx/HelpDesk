@@ -1,0 +1,28 @@
+{% include "base/base.html" %}
+
+
+<div class="container mt-5">
+
+    <h3 class="text-center mb-5">SIGN IN</h3>
+     
+    <form method='POST' action="{% url 'signin' %}" >
+        {% csrf_token %}
+        <div class="border rounded text-center mb-3">
+            {% for user in users_to_signin %}
+                <p class="m-0 p-0 fs-6">USERNAME: {{ user.username }}</p>
+                <p class="m-0 p-0 fs-6">PASSWORD: {{ 123 }}</p>
+            {% endfor %}
+        </div>
+        <div class="mb-3 row">
+            {% for form in form %}
+            <label for="{{ form.label }}" class="col-sm-4 col-form-label">{{ form.label }}</label>
+            <div class="col-sm-8">
+                <div class="">{{ form }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit">
+            Send
+        </button>
+    </form>
+</div>

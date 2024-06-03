@@ -1,0 +1,37 @@
+{% load static %}
+
+{% for ticket in tickets %}
+    <tr class="tickets-data" >
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.customer.user.email }}</td>
+        <td>{{ ticket.issue }}</td>
+        {% comment %} {% if is_update_view %}
+            <td>{{ ticket.opening_agent.id }}</td>
+            <td>{% if ticket.closure_agent %}{{ ticket.closure_agent.id }}{% else %}Sin agente{% endif %}</td>
+        {% endif %} {% endcomment %}
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.type }}</td>
+        <td>{{ ticket.status }}</td>
+        {% comment %} {% if is_update_view %}
+            <td>{{ ticket.observation }}</td>
+            <td>{{ ticket.solution }}</td>
+        {% endif %} {% endcomment %}
+        <td>{{ ticket.opening_date }}</td>
+        <td>{% if ticket.closing_date %}{{ ticket.closing_date }}{% else %}Sin fecha de cierre{% endif %}</td>
+        
+        <td>
+            <a class="btn btn-sm btn-warning" href="{% url 'ticket_update' ticket.id %}">
+                E
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-sm btn-danger" hx-delete="/api/contact/1">
+                X
+            </a>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="11">No se encontraron resultados.</td>
+    </tr>
+{% endfor %}
